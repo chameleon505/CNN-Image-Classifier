@@ -75,13 +75,14 @@ def test(model, criterion, testloader, device):
             correct += (predicted == labels).sum().item()
 
     print(f'Accuracy: {100 * correct / total}%')
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-model = SimpleCNN().to(device)
-criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.001)
+if __name__ == '__main__':
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model = SimpleCNN().to(device)
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-num_epochs = 10
-for epoch in range(num_epochs):
-    print(f'Epoch {epoch + 1}/{num_epochs}')
-    train(model, criterion, optimizer, train_loader, device)
-    test(model, criterion, test_loader, device)
+    num_epochs = 10
+    for epoch in range(num_epochs):
+        print(f'Epoch {epoch + 1}/{num_epochs}')
+        train(model, criterion, optimizer, train_loader, device)
+        test(model, criterion, test_loader, device)
